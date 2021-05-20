@@ -17,14 +17,16 @@ provider "aws" {
 #}
 
 module "vpc" {
-   source = "/Users/apple/Desktop/Terraform/terraform-poc/lib.aws.vpc/"
+#   source = "/Users/apple/Desktop/Terraform/terraform-poc/lib.aws.vpc/"
+    source = "git::git@github.com:Pratik44/lib.aws.vpc"        
 }
 
 
 
 module "subnet" {
-    source = "/Users/apple/Desktop/Terraform/terraform-poc/lib.aws.subnet/"
-    vpc_id = "${module.vpc.vpc_id}"
+#    source = "/Users/apple/Desktop/Terraform/terraform-poc/lib.aws.subnet/"
+    source = "git::git@github.com:Pratik44/lib.aws.subnet" 
+#    vpc_id = "${module.vpc.vpc_id}"
 }
 
 #resource "aws_subnet" "public_sub" {
@@ -67,7 +69,7 @@ resource "aws_route_table" "poc-public-crt" {
 }
 
 resource "aws_route_table_association" "poc-crta-public-subnet"{
-    subnet_id = "${module.subnet.public_sub_id}"
+    subnet_id = "${var.public_sub_id}"
     route_table_id = "${aws_route_table.poc-public-crt.id}"
 }
 
@@ -125,7 +127,7 @@ resource "aws_instance" "webserver" {
     ami = "${lookup(var.AMI, var.AWS_REGION)}"
     instance_type = "t2.micro"
     # VPC
-    subnet_id = "${module.subnet.public_sub_id}"
+    subnet_id = "${var.public_sub_id}"
     # Security Group
     vpc_security_group_ids = ["${aws_security_group.web-allowed.id}"]
   tags = {
@@ -133,5 +135,14 @@ resource "aws_instance" "webserver" {
   }
 }
 
+resource "aws_volume_attachment" "sec_disk_att" {
+  device_name = "/dev/sdh"
+  volume_id   = aws_ebs_volume.secondary_disk.id
+  instance_id = aws_instance.webserver.id
+}
 
+resource "aws_ebs_volume" "secondary_disk" {
+  availability_zone = "ap-south-1"
+  size              = 1
+}
 
