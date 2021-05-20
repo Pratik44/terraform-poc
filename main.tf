@@ -69,7 +69,7 @@ resource "aws_route_table" "poc-public-crt" {
 }
 
 resource "aws_route_table_association" "poc-crta-public-subnet"{
-    subnet_id = "${module.subnet.public_sub_id}"
+    subnet_id = "${var.public_sub_id}" 
     route_table_id = "${aws_route_table.poc-public-crt.id}"
 }
 
@@ -127,7 +127,7 @@ resource "aws_instance" "webserver" {
     ami = "${lookup(var.AMI, var.AWS_REGION)}"
     instance_type = "t2.micro"
     # VPC
-    subnet_id = "${module.subnet.public_sub_id}"
+    subnet_id = "${var.public_sub_id}"
     # Security Group
     vpc_security_group_ids = ["${aws_security_group.web-allowed.id}"]
   tags = {
