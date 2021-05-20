@@ -13,6 +13,7 @@ variable "AWS_REGION" {
 }
 
 variable "public_sub_id" {
+    value = ${module.subnet.public_sub_id}
 }
 
 #variable "private_sub_id" {
