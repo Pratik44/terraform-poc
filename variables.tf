@@ -12,9 +12,8 @@ variable "AWS_REGION" {
     default = "ap-south-1"
 }
 
-#variable "public_sub_id" {
-#type = "string"
-#}
+variable "public_sub_id" {
+}
 
 #variable "private_sub_id" {
 #type = "string"
