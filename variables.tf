@@ -12,6 +12,10 @@ variable "AWS_REGION" {
     default = "ap-south-1"
 }
 
-#variable "vpc_id" {
-#    type = string
+variable "public_sub_id" {
+type = "string"
+}
+
+#variable "private_sub_id" {
+#type = "string"
 #}
