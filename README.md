@@ -8,6 +8,17 @@ Pre-requisite:
 1.) Following tools to be installed locally  " aws cli ", " git ", " terraform " 
 2.) Configure ssh-key based authentication with github account.
 
+# terraform installation
+# https://learn.hashicorp.com/tutorials/terraform/install-cli
+# Download specific version  
+https://www.terraform.io/downloads.html
+
+# Installing git
+# https://git-scm.com/download/win
+
+# Install aws clii
+# https://docs.aws.amazon.com/cli/latest/userguide/install-cliv2-windows.html
+
 Steps: 
 1.) Login to AWS account
 # aws configure
